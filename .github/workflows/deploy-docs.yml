@@ -36,6 +36,7 @@ jobs:
         env:
           NODE_OPTIONS: --max_old_space_size=8192
         run: |-
+          rm -f package-lock.json
           npm run docs:build
           > docs/.vuepress/dist/.nojekyll
 
@@ -43,5 +44,6 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           # 这是文档部署到的分支名称
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
           branch: gh-pages
           folder: docs/.vuepress/dist
