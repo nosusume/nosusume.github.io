@@ -30,13 +30,14 @@ jobs:
           cache: npm
 
       - name: 安装依赖
-        run: npm ci
+        run: |-
+          rm -f package-lock.json
+          npm ci
 
       - name: 构建文档
         env:
           NODE_OPTIONS: --max_old_space_size=8192
         run: |-
-          rm -f package-lock.json
           npm run docs:build
           > docs/.vuepress/dist/.nojekyll
 
